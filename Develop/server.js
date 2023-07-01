@@ -15,7 +15,13 @@ app.get('/api/notes',(req,res)=>{
 res.json(savedNotes)
 })
 app.post('/api/notes',(req,res)=>{
-
+const newNote=req.body;
+savedNotes.push(newNote);
+res.json(savedNotes);
+fs.writeFile("./db/db.json",JSON.stringify(savedNotes),(err)=>{
+    if (err) throw err;
+    console.log("file written")
+})
 })
 app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/notes.html'))
